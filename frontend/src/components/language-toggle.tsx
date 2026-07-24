@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -8,6 +9,8 @@ import { cn } from "@/lib/utils";
 export function LanguageToggle() {
   const locale = useLocale();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const query = Object.fromEntries(searchParams.entries());
 
   return (
     <div className="flex items-center rounded-[9px] bg-[#f4f4f5] p-[2px] text-xs font-semibold sm:text-[13px]">
@@ -16,7 +19,7 @@ export function LanguageToggle() {
         return (
           <Link
             key={loc}
-            href={pathname}
+            href={{ pathname, query }}
             locale={loc}
             className={cn(
               "inline-flex min-h-11 min-w-11 items-center justify-center rounded-[7px] px-2 uppercase transition-colors sm:px-3",
