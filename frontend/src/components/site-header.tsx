@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Suspense } from "react";
 import { Grid2X2, Search, UserRound } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -53,7 +54,9 @@ export async function SiteHeader() {
         </form>
 
         <div className="ml-auto lg:ml-0">
-          <LanguageToggle />
+          <Suspense>
+            <LanguageToggle />
+          </Suspense>
         </div>
 
         <Link
