@@ -44,6 +44,7 @@ yarn-debug.log*
 yarn-error.log*
 .turbo/
 .eslintcache
+.expo-export-check/
 
 # Python (Backend & Scraper & Shared)
 __pycache__/

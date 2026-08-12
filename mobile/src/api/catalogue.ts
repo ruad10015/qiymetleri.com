@@ -1,4 +1,9 @@
 import { apiGet, buildQuery } from "@/api/client";
+import {
+  getDemoCatalogueData,
+  getDemoHomeData,
+  getDemoProductPageData,
+} from "@/api/demo-catalogue";
 import type {
   CatalogueData,
   CatalogueQuery,
@@ -11,16 +16,21 @@ import type {
 } from "@/api/types";
 
 export async function getHomeData(signal?: AbortSignal): Promise<HomeData> {
-  const [products, filters] = await Promise.all([
-    apiGet<ProductsResponse>("/api/v1/products?per_page=8&sort_by=popular", signal),
-    apiGet<FiltersResponse>("/api/v1/filters", signal),
-  ]);
+  try {
+    const [products, filters] = await Promise.all([
+      apiGet<ProductsResponse>("/api/v1/products?per_page=8&sort_by=popular", signal),
+      apiGet<FiltersResponse>("/api/v1/filters", signal),
+    ]);
 
-  return {
-    products: products.items,
-    categories: filters.categories,
-    stores: filters.stores,
-  };
+    return {
+      products: products.items,
+      categories: filters.categories,
+      stores: filters.stores,
+    };
+  } catch (error) {
+    if (signal?.aborted) throw error;
+    return getDemoHomeData();
+  }
 }
 
 export async function getCatalogueData(
@@ -34,11 +44,16 @@ export async function getCatalogueData(
     brand: query.brand,
     store_id: query.store_id,
   });
-  const [products, filters] = await Promise.all([
-    apiGet<ProductsResponse>(`/api/v1/products?${productsQuery}`, signal),
-    apiGet<FiltersResponse>(`/api/v1/filters?${filtersQuery}`, signal),
-  ]);
-  return { ...products, filters };
+  try {
+    const [products, filters] = await Promise.all([
+      apiGet<ProductsResponse>(`/api/v1/products?${productsQuery}`, signal),
+      apiGet<FiltersResponse>(`/api/v1/filters?${filtersQuery}`, signal),
+    ]);
+    return { ...products, filters };
+  } catch (error) {
+    if (signal?.aborted) throw error;
+    return getDemoCatalogueData(query);
+  }
 }
 
 export async function getProductPageData(
@@ -46,15 +61,22 @@ export async function getProductPageData(
   signal?: AbortSignal,
 ): Promise<ProductPageData> {
   const encodedId = encodeURIComponent(productId);
-  const product = await apiGet<ProductDetail>(`/api/v1/products/${encodedId}`, signal);
-  const [historyResult, filtersResult] = await Promise.allSettled([
-    apiGet<PriceHistoryPoint[]>(`/api/v1/products/${encodedId}/history?days=30`, signal),
-    apiGet<FiltersResponse>("/api/v1/filters", signal),
-  ]);
+  try {
+    const product = await apiGet<ProductDetail>(`/api/v1/products/${encodedId}`, signal);
+    const [historyResult, filtersResult] = await Promise.allSettled([
+      apiGet<PriceHistoryPoint[]>(`/api/v1/products/${encodedId}/history?days=30`, signal),
+      apiGet<FiltersResponse>("/api/v1/filters", signal),
+    ]);
 
-  return {
-    product,
-    history: historyResult.status === "fulfilled" ? historyResult.value : [],
-    stores: filtersResult.status === "fulfilled" ? filtersResult.value.stores : [],
-  };
+    return {
+      product,
+      history: historyResult.status === "fulfilled" ? historyResult.value : [],
+      stores: filtersResult.status === "fulfilled" ? filtersResult.value.stores : [],
+    };
+  } catch (error) {
+    if (signal?.aborted) throw error;
+    const demoProduct = getDemoProductPageData(productId);
+    if (demoProduct) return demoProduct;
+    throw error;
+  }
 }

@@ -10,7 +10,7 @@ npm install
 npm run android
 ```
 
-The default `.env.example` URL targets a FastAPI server running on the Windows host from the standard Android emulator (`10.0.2.2`). For a physical device or production build, set `EXPO_PUBLIC_API_URL` to an HTTPS endpoint reachable by that device.
+The default `.env.example` URL targets the public FastAPI deployment. If that service or its database is unavailable, public catalogue reads transparently fall back to the deterministic diploma demo data used by `backend/scripts/seed_demo.py`, so products, filters, detail pages, offers, and price history remain demonstrable offline. Set `EXPO_PUBLIC_API_URL` to another HTTPS endpoint to override the deployment.
 
 ## Checks
 
