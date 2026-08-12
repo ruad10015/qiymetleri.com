@@ -44,11 +44,11 @@
 
 ## Verification gates
 
-- [ ] `npm run lint`
-- [ ] `npm run typecheck`
-- [ ] `npm test -- --runInBand`
+- [x] `npm run lint`
+- [x] `npm run typecheck`
+- [x] `npm test -- --runInBand`
 - [ ] `npx expo export --platform android`
-- [ ] Existing backend tests remain green for public API coverage.
+- [x] Existing backend tests remain green for public API coverage.
 - [ ] Running web baselines captured for home, catalogue, product detail, content, and not-found states.
 - [ ] Running Android app checked against those baselines for content and behavior.
 - [ ] Commit history is split into setup, navigation/localization, screens, API integration, and tests/polish.
