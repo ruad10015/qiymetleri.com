@@ -1,9 +1,9 @@
 import { apiGet, buildQuery } from "@/api/client";
 import {
-  getDemoCatalogueData,
-  getDemoHomeData,
-  getDemoProductPageData,
-} from "@/api/demo-catalogue";
+  getRealCatalogueData,
+  getRealHomeData,
+  getRealProductPageData,
+} from "@/api/real-catalogue";
 import type {
   CatalogueData,
   CatalogueQuery,
@@ -29,7 +29,7 @@ export async function getHomeData(signal?: AbortSignal): Promise<HomeData> {
     };
   } catch (error) {
     if (signal?.aborted) throw error;
-    return getDemoHomeData();
+    return getRealHomeData();
   }
 }
 
@@ -52,7 +52,7 @@ export async function getCatalogueData(
     return { ...products, filters };
   } catch (error) {
     if (signal?.aborted) throw error;
-    return getDemoCatalogueData(query);
+    return getRealCatalogueData(query);
   }
 }
 
@@ -75,8 +75,8 @@ export async function getProductPageData(
     };
   } catch (error) {
     if (signal?.aborted) throw error;
-    const demoProduct = getDemoProductPageData(productId);
-    if (demoProduct) return demoProduct;
+    const realProduct = getRealProductPageData(productId);
+    if (realProduct) return realProduct;
     throw error;
   }
 }
