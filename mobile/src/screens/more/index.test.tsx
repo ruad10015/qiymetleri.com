@@ -1,13 +1,10 @@
 import { render, screen } from "@testing-library/react-native";
-import type { ReactNode } from "react";
 
 import { LocaleProvider } from "@/i18n/locale-context";
 import az from "@/i18n/messages/az.json";
 import { MoreScreen } from "@/screens/more";
 
-jest.mock("expo-router", () => ({
-  Link: ({ children }: { children: ReactNode }) => children,
-}));
+jest.mock("expo-router", () => ({ useRouter: () => ({ push: jest.fn() }) }));
 jest.mock("expo-haptics", () => ({ selectionAsync: jest.fn(async () => undefined) }));
 
 test("groups every public header and footer destination", async () => {

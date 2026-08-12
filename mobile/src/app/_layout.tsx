@@ -41,8 +41,8 @@ export default function RootLayout() {
           }}
         >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(content)" options={{ headerShown: false }} />
           <Stack.Screen name="products/[productId]" />
-          <Stack.Screen name="[slug]" />
           <Stack.Screen name="+not-found" />
         </Stack>
       </AppProviders>
