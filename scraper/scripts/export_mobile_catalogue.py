@@ -12,6 +12,7 @@ import json
 import re
 import sys
 from datetime import datetime, timezone
+from importlib import import_module
 from pathlib import Path
 from typing import Any
 
@@ -19,7 +20,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from shared.normalizer import normalize_name
+normalize_name = import_module("shared.normalizer").normalize_name
 
 STORE_NAMES = {
     "kontakt_home": "Kontakt Home",
