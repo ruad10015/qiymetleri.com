@@ -12,7 +12,7 @@ import {
 
 import type { CatalogueQuery, FilterOption, ProductSummary } from "@/api/types";
 import { useCatalogueQuery } from "@/api/queries";
-import { ErrorState, LoadingState } from "@/components/async-state";
+import { LoadingState } from "@/components/async-state";
 import { ProductCard } from "@/components/product-card";
 import { NetworkBanner } from "@/components/network-banner";
 import { SearchField } from "@/components/search-field";
@@ -62,20 +62,27 @@ export function CatalogueScreen({
         <Text selectable role="heading" aria-level={1} style={{ color: colors.text, fontFamily: "LTSuperiorExtraBold", fontSize: 24 }}>
           {query.q ? t("catalogue.searchTitle", { query: query.q }) : t("catalogue.title")}
         </Text>
-        <Text selectable style={{ color: colors.muted, fontFamily: "Manrope", fontSize: 13, paddingTop: 4 }}>
-          {data ? t("catalogue.resultCount", { count: data.total }) : t("home.dataUnavailable")}
-        </Text>
+        {data || error ? (
+          <Text
+            selectable
+            role={error ? "alert" : undefined}
+            style={{ color: colors.muted, fontFamily: "Manrope", fontSize: 13, paddingTop: 4 }}
+          >
+            {data ? t("catalogue.resultCount", { count: data.total }) : t("home.dataUnavailable")}
+          </Text>
+        ) : null}
       </View>
+
+      <FilterRow
+        title={t("catalogue.sort")}
+        items={sortOptions.map((item) => ({ id: item.id, name: t(item.key), count: 0 }))}
+        active={query.sort_by}
+        showCount={false}
+        onSelect={(sort_by) => onUpdateQuery({ sort_by: sort_by as CatalogueQuery["sort_by"], page: 1 })}
+      />
 
       {data ? (
         <>
-          <FilterRow
-            title={t("catalogue.sort")}
-            items={sortOptions.map((item) => ({ id: item.id, name: t(item.key), count: 0 }))}
-            active={query.sort_by}
-            showCount={false}
-            onSelect={(sort_by) => onUpdateQuery({ sort_by: sort_by as CatalogueQuery["sort_by"], page: 1 })}
-          />
           <FilterRow
             title={t("catalogue.categories")}
             items={data.filters.categories.map((item) => ({
@@ -121,7 +128,7 @@ export function CatalogueScreen({
         isPending ? (
           <LoadingState label={t("catalogue.title")} />
         ) : error ? (
-          <ErrorState message={t("home.dataUnavailable")} retryLabel={t("common.apply")} onRetry={() => void refetch()} />
+          null
         ) : (
           <Text selectable style={{ color: colors.muted, fontFamily: "Manrope", padding: 32, textAlign: "center" }}>
             {t("home.emptyProducts")}

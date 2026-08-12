@@ -49,10 +49,10 @@
 - [x] `npm test -- --runInBand`
 - [x] `npx expo export --platform android`
 - [x] Existing backend tests remain green for public API coverage.
-- [ ] Running web baselines captured for home, catalogue, product detail, content, and not-found states.
-- [ ] Running Android app checked against those baselines for content and behavior.
+- [x] Running web baselines captured for home, catalogue, product detail, content, and not-found states.
+- [x] Running Android app checked against those baselines for content and behavior.
 - [x] Commit history is split into setup, navigation/localization, screens, API integration, and tests/polish.
-- [ ] Branch is pushed and a pull request is opened.
+- [x] Branch is pushed and a pull request is opened.
 
 ## Out of scope
 

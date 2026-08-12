@@ -1,6 +1,7 @@
 import { fetch } from "expo/fetch";
 
 const fallbackApiUrl = "http://10.0.2.2:8000";
+export const API_REQUEST_TIMEOUT_MS = 15_000;
 
 export const apiBaseUrl = (process.env.EXPO_PUBLIC_API_URL || fallbackApiUrl).replace(/\/$/, "");
 
@@ -23,10 +24,24 @@ export class ResourceNotFoundError extends ApiError {
 }
 
 export async function apiGet<T>(path: string, signal?: AbortSignal): Promise<T> {
+  const controller = new AbortController();
+  let timedOut = false;
+  const abortFromCaller = () => controller.abort(signal?.reason);
+  const timeout = setTimeout(() => {
+    timedOut = true;
+    controller.abort();
+  }, API_REQUEST_TIMEOUT_MS);
+
+  if (signal?.aborted) {
+    abortFromCaller();
+  } else {
+    signal?.addEventListener("abort", abortFromCaller, { once: true });
+  }
+
   try {
     const response = await fetch(`${apiBaseUrl}${path}`, {
       headers: { Accept: "application/json" },
-      signal,
+      signal: controller.signal,
     });
 
     if (response.status === 404 || response.status === 422) {
@@ -42,10 +57,16 @@ export async function apiGet<T>(path: string, signal?: AbortSignal): Promise<T> 
       throw new ApiError("Invalid JSON response", response.status, "INVALID_RESPONSE");
     }
   } catch (error) {
+    if (timedOut) {
+      throw new ApiError("Network request timed out", 0, "NETWORK_ERROR");
+    }
     if (error instanceof ApiError || (error instanceof Error && error.name === "AbortError")) {
       throw error;
     }
     throw new ApiError("Network request failed", 0, "NETWORK_ERROR");
+  } finally {
+    clearTimeout(timeout);
+    signal?.removeEventListener("abort", abortFromCaller);
   }
 }
 

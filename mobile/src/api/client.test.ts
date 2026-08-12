@@ -1,6 +1,11 @@
 import { fetch } from "expo/fetch";
 
-import { ResourceNotFoundError, apiGet, buildQuery } from "@/api/client";
+import {
+  API_REQUEST_TIMEOUT_MS,
+  ResourceNotFoundError,
+  apiGet,
+  buildQuery,
+} from "@/api/client";
 
 jest.mock("expo/fetch", () => ({ fetch: jest.fn() }));
 
@@ -42,4 +47,25 @@ test("apiGet maps transport failures to a typed network error", async () => {
     code: "NETWORK_ERROR",
     status: 0,
   });
+});
+
+test("apiGet aborts stalled requests and maps the timeout to a typed network error", async () => {
+  jest.useFakeTimers();
+  mockedFetch.mockImplementation((_url, options) => new Promise((_resolve, reject) => {
+    options?.signal?.addEventListener("abort", () => {
+      const error = new Error("aborted");
+      error.name = "AbortError";
+      reject(error);
+    });
+  }));
+
+  const request = expect(apiGet("/api/v1/products")).rejects.toMatchObject({
+    code: "NETWORK_ERROR",
+    message: "Network request timed out",
+    status: 0,
+  });
+  await jest.advanceTimersByTimeAsync(API_REQUEST_TIMEOUT_MS);
+
+  await request;
+  jest.useRealTimers();
 });

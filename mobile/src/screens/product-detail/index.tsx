@@ -8,7 +8,7 @@ import { Linking, Pressable, RefreshControl, ScrollView, Text, View } from "reac
 import type { CurrentPrice, PriceHistoryPoint, ProductDetail } from "@/api/types";
 import { ResourceNotFoundError } from "@/api/client";
 import { useProductQuery } from "@/api/queries";
-import { ErrorState, LoadingState } from "@/components/async-state";
+import { LoadingState } from "@/components/async-state";
 import { NetworkBanner } from "@/components/network-banner";
 import { NotFoundScreen } from "@/screens/not-found";
 import { useLocale } from "@/i18n/locale-context";
@@ -39,9 +39,26 @@ export function ProductDetailScreen({ productId }: { productId?: string }) {
   if (query.error instanceof ResourceNotFoundError) return <NotFoundScreen />;
   if (query.error || !query.data) {
     return (
-      <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}>
-        <ErrorState message={t("productPage.unavailableBody")} retryLabel={t("common.apply")} onRetry={() => void query.refetch()} />
-      </ScrollView>
+      <>
+        <Stack.Title>{t("productPage.unavailableTitle")}</Stack.Title>
+        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ alignItems: "center", flexGrow: 1, justifyContent: "center", padding: 24 }}>
+          <View role="alert" style={{ alignItems: "center", gap: 14, maxWidth: 560 }}>
+            <Text selectable role="heading" aria-level={1} style={{ color: colors.text, fontFamily: "LTSuperiorExtraBold", fontSize: 25, textAlign: "center" }}>
+              {t("productPage.unavailableTitle")}
+            </Text>
+            <Text selectable style={{ color: colors.muted, fontFamily: "Manrope", lineHeight: 22, textAlign: "center" }}>
+              {t("productPage.unavailableBody")}
+            </Text>
+            <Link href="/products" asChild>
+              <Pressable role="link" style={({ pressed }) => ({ backgroundColor: colors.accent, borderCurve: "continuous", borderRadius: 12, justifyContent: "center", minHeight: 46, opacity: pressed ? 0.72 : 1, paddingHorizontal: 20 })}>
+                <Text style={{ color: colors.surface, fontFamily: "Manrope", fontWeight: "800" }}>
+                  {t("productPage.backToCatalogue")}
+                </Text>
+              </Pressable>
+            </Link>
+          </View>
+        </ScrollView>
+      </>
     );
   }
 
