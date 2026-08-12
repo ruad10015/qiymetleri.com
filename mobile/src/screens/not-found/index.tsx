@@ -43,6 +43,26 @@ export function NotFoundScreen() {
             </Text>
           </Pressable>
         </Link>
+        <Link href="/products" asChild>
+          <Pressable
+            role="link"
+            style={({ pressed }) => ({
+              alignItems: "center",
+              borderColor: colors.border,
+              borderCurve: "continuous",
+              borderRadius: 12,
+              borderWidth: 1,
+              justifyContent: "center",
+              minHeight: 48,
+              opacity: pressed ? 0.7 : 1,
+              paddingHorizontal: 20,
+            })}
+          >
+            <Text style={{ color: colors.text, fontFamily: "Manrope", fontWeight: "700" }}>
+              {t("notFound.catalogue")}
+            </Text>
+          </Pressable>
+        </Link>
       </View>
     </ScrollView>
   );

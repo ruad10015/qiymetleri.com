@@ -14,33 +14,33 @@
 
 | Web route | Native route | Bucket | Required behavior | Status |
 | --- | --- | --- | --- | --- |
-| `/[locale]` | `/` | nativize-now | popular products, six categories and counts, stores, search, favourites, language switch | [ ] |
-| `/[locale]/products` | `/products` | nativize-now | query search, category/brand/store filters, four sort modes, result count, pagination, empty/error states | [ ] |
-| `/[locale]/products/[productId]` | `/products/[productId]` | nativize-now | image and summary, offers, safe retailer links, variants, attributes, 30-day price history, unavailable/not-found states | [ ] |
-| `/[locale]/login` | `/content/login` | nativize-now | same informational account content and catalogue CTA; no auth form | [ ] |
-| `/[locale]/about` | `/content/about` | nativize-now | same localized sections and CTA | [ ] |
-| `/[locale]/partnership` | `/content/partnership` | nativize-now | same localized sections and email CTA | [ ] |
-| `/[locale]/social` | `/content/social` | nativize-now | same localized sections and GitHub CTA | [ ] |
-| `/[locale]/contact` | `/content/contact` | nativize-now | same localized sections and email CTA | [ ] |
-| `/[locale]/terms` | `/content/terms` | nativize-now | same localized legal content and CTA | [ ] |
-| `/[locale]/privacy` | `/content/privacy` | nativize-now | same localized legal content and CTA | [ ] |
-| `/[locale]/personal-data` | `/content/personal-data` | nativize-now | same localized legal content and CTA | [ ] |
-| `/[locale]/consent` | `/content/consent` | nativize-now | same localized legal content and CTA | [ ] |
-| unknown public route | `+not-found` | nativize-now | localized not-found message and home/catalogue actions | [ ] |
+| `/[locale]` | `/` | nativize-now | popular products, six categories and counts, stores, search, favourites, language switch | [x] |
+| `/[locale]/products` | `/products` | nativize-now | query search, category/brand/store filters, four sort modes, result count, pagination, empty/error states | [x] |
+| `/[locale]/products/[productId]` | `/products/[productId]` | nativize-now | image and summary, offers, safe retailer links, variants, attributes, 30-day price history, unavailable/not-found states | [x] |
+| `/[locale]/login` | `/content/login` | nativize-now | same informational account content and catalogue CTA; no auth form | [x] |
+| `/[locale]/about` | `/content/about` | nativize-now | same localized sections and CTA | [x] |
+| `/[locale]/partnership` | `/content/partnership` | nativize-now | same localized sections and email CTA | [x] |
+| `/[locale]/social` | `/content/social` | nativize-now | same localized sections and GitHub CTA | [x] |
+| `/[locale]/contact` | `/content/contact` | nativize-now | same localized sections and email CTA | [x] |
+| `/[locale]/terms` | `/content/terms` | nativize-now | same localized legal content and CTA | [x] |
+| `/[locale]/privacy` | `/content/privacy` | nativize-now | same localized legal content and CTA | [x] |
+| `/[locale]/personal-data` | `/content/personal-data` | nativize-now | same localized legal content and CTA | [x] |
+| `/[locale]/consent` | `/content/consent` | nativize-now | same localized legal content and CTA | [x] |
+| unknown public route | `+not-found` | nativize-now | localized not-found message and home/catalogue actions | [x] |
 
 ## Shared behavior checklist
 
 - [x] Native stack navigation and Android back behavior.
-- [ ] Search from the home header and catalogue screen.
+- [x] Search from the home header and catalogue screen.
 - [x] AZ/RU language switching updates all visible content and is retained across launches.
-- [ ] Product cards preserve name, lowest price, offer count, remote image fallback, and favourite toggle behavior.
-- [ ] Catalogue state is represented in Expo Router query parameters and survives navigation to product detail and back.
-- [ ] API requests have typed errors, cancellation through TanStack Query, retry limits, pull-to-refresh, and offline-aware UI.
-- [ ] External `http(s)` and `mailto:` links are validated before opening.
-- [ ] Loading, empty, unavailable, and not-found states match the web app's meaning.
-- [ ] Touch targets, roles, labels, and selected/disabled states are accessible.
-- [ ] Manrope and LT Superior bundled fonts and existing store/logo assets are reused.
-- [ ] Admin screens, admin API calls, and admin credentials are absent from the mobile bundle.
+- [x] Product cards preserve name, lowest price, offer count, remote image fallback, and favourite toggle behavior.
+- [x] Catalogue state is represented in Expo Router query parameters and survives navigation to product detail and back.
+- [x] API requests have typed errors, cancellation through TanStack Query, retry limits, pull-to-refresh, and offline-aware UI.
+- [x] External `http(s)` and `mailto:` links are validated before opening.
+- [x] Loading, empty, unavailable, and not-found states match the web app's meaning.
+- [x] Touch targets, roles, labels, and selected/disabled states are accessible.
+- [x] Manrope and LT Superior bundled fonts and existing store/logo assets are reused.
+- [x] Admin screens, admin API calls, and admin credentials are absent from the mobile bundle.
 
 ## Verification gates
 
