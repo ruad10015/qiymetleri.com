@@ -93,7 +93,7 @@ function ProductHero({ product, lowestPrice, offerCount }: { product: ProductDet
     <View style={{ backgroundColor: colors.surface, borderColor: colors.border, borderCurve: "continuous", borderRadius: 20, borderWidth: 1, gap: 16, padding: 16 }}>
       <View style={{ alignItems: "center", aspectRatio: 1.18, backgroundColor: colors.background, borderCurve: "continuous", borderRadius: 16, justifyContent: "center", overflow: "hidden" }}>
         {product.image_url ? (
-          <Image source={{ uri: product.image_url }} accessibilityLabel={product.name} role="img" contentFit="contain" transition={180} style={{ height: "100%", width: "100%" }} />
+          <Image source={{ uri: product.image_url }} accessibilityLabel={product.name} role="img" contentFit="contain" transition={180} style={{ bottom: 0, left: 0, position: "absolute", right: 0, top: 0 }} />
         ) : (
           <Text selectable style={{ color: colors.mutedLight, fontFamily: "Manrope" }}>qiymetleri.com</Text>
         )}

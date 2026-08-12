@@ -20,12 +20,12 @@ import { useLocale } from "@/i18n/locale-context";
 import { colors } from "@/theme/colors";
 
 const categories = [
-  ["smartphones", "phones", "📱"],
-  ["laptops", "laptops", "💻"],
-  ["televisions", "tvs", "📺"],
-  ["headphones", "headphones", "🎧"],
-  ["tablets", "tablets", "▣"],
-  ["smartwatches", "watches", "⌚"],
+  ["smartphones", "phones", "📱", "#fff1f2"],
+  ["laptops", "laptops", "💻", "#eff6ff"],
+  ["televisions", "tvs", "📺", "#f0fdf4"],
+  ["headphones", "headphones", "🎧", "#faf5ff"],
+  ["tablets", "tablets", "▣", "#fff7ed"],
+  ["smartwatches", "watches", "⌚", "#f0fdfa"],
 ] as const;
 
 const storeLogos: Record<string, number> = {
@@ -52,6 +52,7 @@ export function HomeScreen() {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
+      keyboardShouldPersistTaps="handled"
       refreshControl={
         <RefreshControl refreshing={isRefetching} onRefresh={() => void refetch()} tintColor={colors.accent} />
       }
@@ -71,34 +72,43 @@ export function HomeScreen() {
           {t("home.hero")}
         </Text>
         <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
-          {categories.map(([id, key, icon]) => {
+          {categories.map(([id, key, icon, iconBackground]) => {
             const count = data?.categories.find((item) => item.id === id)?.count ?? 0;
             return (
-              <Link key={id} href={{ pathname: "/products", params: { category: id } }} asChild>
                 <Pressable
+                  key={id}
                   role="link"
+                  aria-label={t(`categories.${key}`)}
+                  onPress={() => router.push({ pathname: "/products", params: { category: id } })}
                   style={({ pressed }) => ({
                     backgroundColor: colors.surface,
                     borderColor: colors.border,
                     borderCurve: "continuous",
                     borderRadius: 16,
                     borderWidth: 1.5,
-                    gap: 5,
-                    minHeight: 104,
+                    flexBasis: "47%",
+                    flexGrow: 1,
+                    gap: 8,
+                    minHeight: 112,
                     opacity: pressed ? 0.72 : 1,
-                    padding: 12,
-                    width: cardWidth,
+                    padding: 14,
                   })}
                 >
-                  <Text aria-hidden style={{ fontSize: 24 }}>{icon}</Text>
-                  <Text style={{ color: colors.text, fontFamily: "Manrope", fontSize: 13, fontWeight: "800" }}>
-                    {t(`categories.${key}`)}
-                  </Text>
-                  <Text selectable style={{ color: colors.mutedLight, fontFamily: "Manrope", fontSize: 11 }}>
-                    {t("categories.count", { count })}
-                  </Text>
+                  <View style={{ alignItems: "center", backgroundColor: iconBackground, borderRadius: 12, height: 42, justifyContent: "center", width: 42 }}>
+                    <Text aria-hidden style={{ fontSize: 22 }}>{icon}</Text>
+                  </View>
+                  <View style={{ alignItems: "flex-end", flexDirection: "row", gap: 6, justifyContent: "space-between" }}>
+                    <View style={{ flex: 1, gap: 2 }}>
+                      <Text style={{ color: colors.text, fontFamily: "Manrope", fontSize: 13, fontWeight: "800" }}>
+                        {t(`categories.${key}`)}
+                      </Text>
+                      <Text selectable style={{ color: colors.mutedLight, fontFamily: "Manrope", fontSize: 11, fontVariant: ["tabular-nums"] }}>
+                        {t("categories.count", { count })}
+                      </Text>
+                    </View>
+                    <Text aria-hidden style={{ color: colors.mutedLight, fontSize: 18 }}>›</Text>
+                  </View>
                 </Pressable>
-              </Link>
             );
           })}
         </View>
@@ -154,7 +164,7 @@ export function HomeScreen() {
 function StoresBar({ stores }: { stores: FilterOption[] }) {
   const { t } = useLocale();
   return (
-    <View style={{ backgroundColor: colors.surface, borderColor: colors.border, borderCurve: "continuous", borderRadius: 16, borderWidth: 1.5, gap: 12, padding: 14 }}>
+    <View style={{ backgroundColor: colors.surface, borderColor: colors.border, borderCurve: "continuous", borderRadius: 18, borderWidth: 1.5, gap: 12, padding: 16 }}>
       <Text selectable style={{ color: colors.muted, fontFamily: "Manrope", fontSize: 13, fontWeight: "800" }}>
         {t("home.storesLabel")}
       </Text>

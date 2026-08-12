@@ -2,7 +2,7 @@ import type { GestureResponderEvent } from "react-native";
 import { Pressable, Text, View } from "react-native";
 import { Image } from "expo-image";
 import * as Haptics from "expo-haptics";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 
 import type { ProductSummary } from "@/api/types";
@@ -11,6 +11,7 @@ import { colors } from "@/theme/colors";
 
 export function ProductCard({ product, width }: { product: ProductSummary; width: number }) {
   const { formatNumber, t } = useLocale();
+  const router = useRouter();
   const [favourite, setFavourite] = useState(false);
 
   function toggleFavourite(event: GestureResponderEvent) {
@@ -20,10 +21,10 @@ export function ProductCard({ product, width }: { product: ProductSummary; width
   }
 
   return (
-    <Link href={{ pathname: "/products/[productId]", params: { productId: product.id } }} asChild>
       <Pressable
         role="link"
         aria-label={product.name}
+        onPress={() => router.push({ pathname: "/products/[productId]", params: { productId: product.id } })}
         style={({ pressed }) => ({
           backgroundColor: colors.surface,
           borderColor: colors.border,
@@ -54,7 +55,7 @@ export function ProductCard({ product, width }: { product: ProductSummary; width
               role="img"
               contentFit="contain"
               transition={180}
-              style={{ height: "100%", width: "100%" }}
+              style={{ bottom: 0, left: 0, position: "absolute", right: 0, top: 0 }}
             />
           ) : (
             <Text selectable style={{ color: colors.mutedLight, fontFamily: "Manrope", fontSize: 10 }}>
@@ -105,6 +106,5 @@ export function ProductCard({ product, width }: { product: ProductSummary; width
           </Text>
         </View>
       </Pressable>
-    </Link>
   );
 }
