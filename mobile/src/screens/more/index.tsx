@@ -50,7 +50,7 @@ export function MoreScreen() {
         {links.map(([slug, labelKey]) => (
           <Link
             key={slug}
-            href={{ pathname: "/content/[slug]", params: { slug } }}
+            href={{ pathname: "/[slug]", params: { slug } }}
             asChild
           >
             <Pressable

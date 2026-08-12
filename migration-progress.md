@@ -17,15 +17,15 @@
 | `/[locale]` | `/` | nativize-now | popular products, six categories and counts, stores, search, favourites, language switch | [x] |
 | `/[locale]/products` | `/products` | nativize-now | query search, category/brand/store filters, four sort modes, result count, pagination, empty/error states | [x] |
 | `/[locale]/products/[productId]` | `/products/[productId]` | nativize-now | image and summary, offers, safe retailer links, variants, attributes, 30-day price history, unavailable/not-found states | [x] |
-| `/[locale]/login` | `/content/login` | nativize-now | same informational account content and catalogue CTA; no auth form | [x] |
-| `/[locale]/about` | `/content/about` | nativize-now | same localized sections and CTA | [x] |
-| `/[locale]/partnership` | `/content/partnership` | nativize-now | same localized sections and email CTA | [x] |
-| `/[locale]/social` | `/content/social` | nativize-now | same localized sections and GitHub CTA | [x] |
-| `/[locale]/contact` | `/content/contact` | nativize-now | same localized sections and email CTA | [x] |
-| `/[locale]/terms` | `/content/terms` | nativize-now | same localized legal content and CTA | [x] |
-| `/[locale]/privacy` | `/content/privacy` | nativize-now | same localized legal content and CTA | [x] |
-| `/[locale]/personal-data` | `/content/personal-data` | nativize-now | same localized legal content and CTA | [x] |
-| `/[locale]/consent` | `/content/consent` | nativize-now | same localized legal content and CTA | [x] |
+| `/[locale]/login` | `/login` | nativize-now | same informational account content and catalogue CTA; no auth form | [x] |
+| `/[locale]/about` | `/about` | nativize-now | same localized sections and CTA | [x] |
+| `/[locale]/partnership` | `/partnership` | nativize-now | same localized sections and email CTA | [x] |
+| `/[locale]/social` | `/social` | nativize-now | same localized sections and GitHub CTA | [x] |
+| `/[locale]/contact` | `/contact` | nativize-now | same localized sections and email CTA | [x] |
+| `/[locale]/terms` | `/terms` | nativize-now | same localized legal content and CTA | [x] |
+| `/[locale]/privacy` | `/privacy` | nativize-now | same localized legal content and CTA | [x] |
+| `/[locale]/personal-data` | `/personal-data` | nativize-now | same localized legal content and CTA | [x] |
+| `/[locale]/consent` | `/consent` | nativize-now | same localized legal content and CTA | [x] |
 | unknown public route | `+not-found` | nativize-now | localized not-found message and home/catalogue actions | [x] |
 
 ## Shared behavior checklist
@@ -47,11 +47,11 @@
 - [x] `npm run lint`
 - [x] `npm run typecheck`
 - [x] `npm test -- --runInBand`
-- [ ] `npx expo export --platform android`
+- [x] `npx expo export --platform android`
 - [x] Existing backend tests remain green for public API coverage.
 - [ ] Running web baselines captured for home, catalogue, product detail, content, and not-found states.
 - [ ] Running Android app checked against those baselines for content and behavior.
-- [ ] Commit history is split into setup, navigation/localization, screens, API integration, and tests/polish.
+- [x] Commit history is split into setup, navigation/localization, screens, API integration, and tests/polish.
 - [ ] Branch is pushed and a pull request is opened.
 
 ## Out of scope
