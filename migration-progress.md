@@ -1,0 +1,61 @@
+# qiymetleri.com web-to-native migration
+
+## Scope and decisions
+
+- Target: Android application built with Expo, React Native, TypeScript, and Expo Router.
+- Location: `mobile/` in this repository; existing frontend, backend, and scraper stay intact.
+- Backend: the existing FastAPI service remains the source of truth and is accessed through an absolute `EXPO_PUBLIC_API_URL`.
+- Authentication: no end-user authentication exists in the public web app. The informational `/login` page is included; all admin routes and admin authentication are excluded.
+- Local Android emulator API URL: `http://10.0.2.2:8000`.
+- Languages: Azerbaijani (`az`) and Russian (`ru`) with the selected language retained on-device.
+- Parity means the same public content and behavior, expressed with native Android navigation and controls rather than a WebView.
+
+## Public route inventory
+
+| Web route | Native route | Bucket | Required behavior | Status |
+| --- | --- | --- | --- | --- |
+| `/[locale]` | `/` | nativize-now | popular products, six categories and counts, stores, search, favourites, language switch | [ ] |
+| `/[locale]/products` | `/products` | nativize-now | query search, category/brand/store filters, four sort modes, result count, pagination, empty/error states | [ ] |
+| `/[locale]/products/[productId]` | `/products/[productId]` | nativize-now | image and summary, offers, safe retailer links, variants, attributes, 30-day price history, unavailable/not-found states | [ ] |
+| `/[locale]/login` | `/content/login` | nativize-now | same informational account content and catalogue CTA; no auth form | [ ] |
+| `/[locale]/about` | `/content/about` | nativize-now | same localized sections and CTA | [ ] |
+| `/[locale]/partnership` | `/content/partnership` | nativize-now | same localized sections and email CTA | [ ] |
+| `/[locale]/social` | `/content/social` | nativize-now | same localized sections and GitHub CTA | [ ] |
+| `/[locale]/contact` | `/content/contact` | nativize-now | same localized sections and email CTA | [ ] |
+| `/[locale]/terms` | `/content/terms` | nativize-now | same localized legal content and CTA | [ ] |
+| `/[locale]/privacy` | `/content/privacy` | nativize-now | same localized legal content and CTA | [ ] |
+| `/[locale]/personal-data` | `/content/personal-data` | nativize-now | same localized legal content and CTA | [ ] |
+| `/[locale]/consent` | `/content/consent` | nativize-now | same localized legal content and CTA | [ ] |
+| unknown public route | `+not-found` | nativize-now | localized not-found message and home/catalogue actions | [ ] |
+
+## Shared behavior checklist
+
+- [ ] Native stack navigation and Android back behavior.
+- [ ] Search from the home header and catalogue screen.
+- [ ] AZ/RU language switching updates all visible content and is retained across launches.
+- [ ] Product cards preserve name, lowest price, offer count, remote image fallback, and favourite toggle behavior.
+- [ ] Catalogue state is represented in Expo Router query parameters and survives navigation to product detail and back.
+- [ ] API requests have typed errors, cancellation through TanStack Query, retry limits, pull-to-refresh, and offline-aware UI.
+- [ ] External `http(s)` and `mailto:` links are validated before opening.
+- [ ] Loading, empty, unavailable, and not-found states match the web app's meaning.
+- [ ] Touch targets, roles, labels, and selected/disabled states are accessible.
+- [ ] Manrope and LT Superior bundled fonts and existing store/logo assets are reused.
+- [ ] Admin screens, admin API calls, and admin credentials are absent from the mobile bundle.
+
+## Verification gates
+
+- [ ] `npm run lint`
+- [ ] `npm run typecheck`
+- [ ] `npm test -- --runInBand`
+- [ ] `npx expo export --platform android`
+- [ ] Existing backend tests remain green for public API coverage.
+- [ ] Running web baselines captured for home, catalogue, product detail, content, and not-found states.
+- [ ] Running Android app checked against those baselines for content and behavior.
+- [ ] Commit history is split into setup, navigation/localization, screens, API integration, and tests/polish.
+- [ ] Branch is pushed and a pull request is opened.
+
+## Out of scope
+
+- `/[locale]/admin/**`, admin login/session endpoints, scraper controls, store administration, anomaly review, and product matching administration.
+- New user registration/login, because the public web application currently has no such functionality.
+- iOS build or simulator verification.
