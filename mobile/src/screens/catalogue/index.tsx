@@ -32,7 +32,6 @@ const sortOptions: { id: NonNullable<CatalogueQuery["sort_by"]>; key: string }[]
   { id: "name", key: "catalogue.sortName" },
   { id: "price_asc", key: "catalogue.sortPriceAsc" },
   { id: "price_desc", key: "catalogue.sortPriceDesc" },
-  { id: "popular", key: "home.popularTitle" },
 ];
 
 export function CatalogueScreen({

@@ -15,7 +15,7 @@
 | Web route | Native route | Bucket | Required behavior | Status |
 | --- | --- | --- | --- | --- |
 | `/[locale]` | `/` | nativize-now | popular products, six categories and counts, stores, search, favourites, language switch | [x] |
-| `/[locale]/products` | `/products` | nativize-now | query search, category/brand/store filters, four sort modes, result count, pagination, empty/error states | [x] |
+| `/[locale]/products` | `/products` | nativize-now | query search, category/brand/store filters, three public sort modes, result count, pagination, empty/error states | [x] |
 | `/[locale]/products/[productId]` | `/products/[productId]` | nativize-now | image and summary, offers, safe retailer links, variants, attributes, 30-day price history, unavailable/not-found states | [x] |
 | `/[locale]/login` | `/login` | nativize-now | same informational account content and catalogue CTA; no auth form | [x] |
 | `/[locale]/about` | `/about` | nativize-now | same localized sections and CTA | [x] |

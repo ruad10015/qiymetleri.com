@@ -35,5 +35,11 @@ export default function CatalogueRoute() {
     router.push({ pathname: "/products", params: routeParams });
   }
 
-  return <CatalogueScreen query={query} onUpdateQuery={updateQuery} />;
+  return (
+    <CatalogueScreen
+      key={query.q ?? ""}
+      query={query}
+      onUpdateQuery={updateQuery}
+    />
+  );
 }
