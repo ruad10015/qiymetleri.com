@@ -30,9 +30,9 @@
 
 ## Shared behavior checklist
 
-- [ ] Native stack navigation and Android back behavior.
+- [x] Native stack navigation and Android back behavior.
 - [ ] Search from the home header and catalogue screen.
-- [ ] AZ/RU language switching updates all visible content and is retained across launches.
+- [x] AZ/RU language switching updates all visible content and is retained across launches.
 - [ ] Product cards preserve name, lowest price, offer count, remote image fallback, and favourite toggle behavior.
 - [ ] Catalogue state is represented in Expo Router query parameters and survives navigation to product detail and back.
 - [ ] API requests have typed errors, cancellation through TanStack Query, retry limits, pull-to-refresh, and offline-aware UI.

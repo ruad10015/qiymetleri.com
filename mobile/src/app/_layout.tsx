@@ -39,7 +39,12 @@ export default function RootLayout() {
             headerShadowVisible: false,
             headerTitleStyle: { fontFamily: "LTSuperiorExtraBold" },
           }}
-        />
+        >
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="products/[productId]" />
+          <Stack.Screen name="content/[slug]" />
+          <Stack.Screen name="+not-found" />
+        </Stack>
       </AppProviders>
     </GestureHandlerRootView>
   );
