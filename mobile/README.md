@@ -20,3 +20,27 @@ npm run typecheck
 npm test -- --runInBand
 npx expo export --platform android
 ```
+
+## Standalone Android APK
+
+The ready-to-install ARM64 APK is stored at
+`releases/qiymetleri-1.0.0-arm64-v8a.apk`. It contains the production JavaScript
+bundle and does not require Expo Go or a Metro development server.
+
+Install it on a connected Android device with:
+
+```powershell
+adb install -r .\releases\qiymetleri-1.0.0-arm64-v8a.apk
+```
+
+To rebuild the APK locally, install JDK 17 and the Android SDK, set
+`JAVA_HOME` and `ANDROID_HOME`, then run:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-android-apk.ps1
+```
+
+The script uses a short `C:\qv2` junction because Windows' native toolchain has
+a 260-character object-path limit. For an Expo-hosted internal APK build, use
+the `preview` profile in `eas.json`; the `production` profile creates an Android
+App Bundle for Play Store delivery.
