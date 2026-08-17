@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getCatalogueData, getHomeData, getProductPageData } from "@/api/catalogue";
+import {
+  getRealCatalogueData,
+  getRealHomeData,
+  getRealProductPageData,
+} from "@/api/real-catalogue";
 import type { CatalogueQuery } from "@/api/types";
 
 export const catalogueKeys = {
@@ -14,6 +19,7 @@ export function useHomeQuery() {
   return useQuery({
     queryKey: catalogueKeys.home(),
     queryFn: ({ signal }) => getHomeData(signal),
+    initialData: getRealHomeData,
     staleTime: 5 * 60 * 1000,
   });
 }
@@ -22,6 +28,7 @@ export function useCatalogueQuery(query: CatalogueQuery) {
   return useQuery({
     queryKey: catalogueKeys.list(query),
     queryFn: ({ signal }) => getCatalogueData(query, signal),
+    initialData: () => getRealCatalogueData(query),
     placeholderData: (previousData) => previousData,
   });
 }
@@ -31,5 +38,6 @@ export function useProductQuery(productId?: string) {
     queryKey: catalogueKeys.product(productId ?? ""),
     queryFn: ({ signal }) => getProductPageData(productId!, signal),
     enabled: Boolean(productId),
+    initialData: productId ? () => getRealProductPageData(productId) : undefined,
   });
 }

@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { LanguageSwitch } from "@/components/language-switch";
@@ -28,6 +28,7 @@ const legalLinks = [
 
 export function MoreScreen() {
   const { locale, t } = useLocale();
+  const router = useRouter();
 
   return (
     <ScrollView
@@ -47,26 +48,28 @@ export function MoreScreen() {
       </View>
 
       <LinkSection title={t("nav.login")}>
-        <ContentLink slug="login" label={t("nav.login")} />
+        <LinkRow label={t("nav.login")} onPress={() => router.push("/login")} />
       </LinkSection>
 
       <LinkSection title={t("footer.shop")}>
         {shopLinks.map(([category, labelKey]) => (
-          <Link key={category} href={{ pathname: "/products", params: { category } }} asChild>
-            <LinkRow label={t(labelKey)} />
-          </Link>
+          <LinkRow
+            key={category}
+            label={t(labelKey)}
+            onPress={() => router.push({ pathname: "/products", params: { category } })}
+          />
         ))}
       </LinkSection>
 
       <LinkSection title={t("footer.information")}>
         {informationLinks.map(([slug, labelKey]) => (
-          <ContentLink key={slug} slug={slug} label={t(labelKey)} />
+          <LinkRow key={slug} label={t(labelKey)} onPress={() => router.push(`/${slug}`)} />
         ))}
       </LinkSection>
 
       <LinkSection title={t("footer.legal")}>
         {legalLinks.map(([slug, labelKey]) => (
-          <ContentLink key={slug} slug={slug} label={t(labelKey)} />
+          <LinkRow key={slug} label={t(labelKey)} onPress={() => router.push(`/${slug}`)} />
         ))}
       </LinkSection>
 
@@ -98,19 +101,12 @@ function LinkSection({ title, children }: { title: string; children: React.React
   );
 }
 
-function ContentLink({ slug, label }: { slug: string; label: string }) {
-  return (
-    <Link href={{ pathname: "/[slug]", params: { slug } }} asChild>
-      <LinkRow label={label} />
-    </Link>
-  );
-}
-
-function LinkRow({ label }: { label: string }) {
+function LinkRow({ label, onPress }: { label: string; onPress: () => void }) {
   return (
     <Pressable
       role="link"
       aria-label={label}
+      onPress={onPress}
       style={({ pressed }) => ({
         alignItems: "center",
         backgroundColor: colors.surface,

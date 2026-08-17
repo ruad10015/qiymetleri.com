@@ -45,11 +45,13 @@ export function CatalogueScreen({
   const { data, error, isFetching, isPending, isRefetching, refetch } = useCatalogueQuery(query);
   const { t } = useLocale();
   const [search, setSearch] = useState(query.q ?? "");
+  const [filtersExpanded, setFiltersExpanded] = useState(Boolean(query.category || query.brand || query.store_id));
   const contentWidth = Math.min(width, 720) - 32;
   const cardWidth = Math.max(148, (contentWidth - 12) / 2);
 
+  const activeFilterCount = [query.category, query.brand, query.store_id].filter(Boolean).length;
   const header = (
-    <View style={{ gap: 18, paddingBottom: 18 }}>
+    <View style={{ gap: 16, paddingBottom: 18 }}>
       <SearchField
         value={search}
         onChangeText={setSearch}
@@ -83,32 +85,68 @@ export function CatalogueScreen({
 
       {data ? (
         <>
-          <FilterRow
-            title={t("catalogue.categories")}
-            items={data.filters.categories.map((item) => ({
-              ...item,
-              name: categoryTranslationKeys[item.id]
-                ? t(`categories.${categoryTranslationKeys[item.id]}`)
-                : item.name,
-            }))}
-            active={query.category}
-            allLabel={t("catalogue.all")}
-            onSelect={(category) => onUpdateQuery({ category, page: 1 })}
-          />
-          <FilterRow
-            title={t("catalogue.brands")}
-            items={data.filters.brands}
-            active={query.brand}
-            allLabel={t("catalogue.all")}
-            onSelect={(brand) => onUpdateQuery({ brand, page: 1 })}
-          />
-          <FilterRow
-            title={t("catalogue.stores")}
-            items={data.filters.stores}
-            active={query.store_id}
-            allLabel={t("catalogue.all")}
-            onSelect={(store_id) => onUpdateQuery({ store_id, page: 1 })}
-          />
+          <Pressable
+            role="button"
+            aria-expanded={filtersExpanded}
+            onPress={() => setFiltersExpanded((value) => !value)}
+            style={({ pressed }) => ({
+              alignItems: "center",
+              backgroundColor: filtersExpanded ? colors.accentSoft : colors.surface,
+              borderColor: filtersExpanded ? colors.accent : colors.border,
+              borderCurve: "continuous",
+              borderRadius: 14,
+              borderWidth: 1.5,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              minHeight: 48,
+              opacity: pressed ? 0.72 : 1,
+              paddingHorizontal: 15,
+            })}
+          >
+            <View style={{ alignItems: "center", flexDirection: "row", gap: 8 }}>
+              <Text aria-hidden style={{ color: colors.accent, fontSize: 17 }}>☷</Text>
+              <Text style={{ color: colors.text, fontFamily: "Manrope", fontSize: 13, fontWeight: "800" }}>
+                {t("catalogue.filters")}
+              </Text>
+              {activeFilterCount ? (
+                <Text selectable style={{ backgroundColor: colors.accent, borderRadius: 10, color: colors.surface, fontFamily: "Manrope", fontSize: 10, fontVariant: ["tabular-nums"], fontWeight: "800", overflow: "hidden", paddingHorizontal: 7, paddingVertical: 3 }}>
+                  {activeFilterCount}
+                </Text>
+              ) : null}
+            </View>
+            <Text aria-hidden style={{ color: colors.muted, fontSize: 18 }}>{filtersExpanded ? "⌃" : "⌄"}</Text>
+          </Pressable>
+
+          {filtersExpanded ? (
+            <View style={{ backgroundColor: colors.surface, borderColor: colors.border, borderCurve: "continuous", borderRadius: 16, borderWidth: 1, gap: 16, padding: 14 }}>
+              <FilterRow
+                title={t("catalogue.categories")}
+                items={data.filters.categories.map((item) => ({
+                  ...item,
+                  name: categoryTranslationKeys[item.id]
+                    ? t(`categories.${categoryTranslationKeys[item.id]}`)
+                    : item.name,
+                }))}
+                active={query.category}
+                allLabel={t("catalogue.all")}
+                onSelect={(category) => onUpdateQuery({ category, page: 1 })}
+              />
+              <FilterRow
+                title={t("catalogue.brands")}
+                items={data.filters.brands}
+                active={query.brand}
+                allLabel={t("catalogue.all")}
+                onSelect={(brand) => onUpdateQuery({ brand, page: 1 })}
+              />
+              <FilterRow
+                title={t("catalogue.stores")}
+                items={data.filters.stores}
+                active={query.store_id}
+                allLabel={t("catalogue.all")}
+                onSelect={(store_id) => onUpdateQuery({ store_id, page: 1 })}
+              />
+            </View>
+          ) : null}
         </>
       ) : null}
       {isFetching && !isRefetching && data ? <ActivityIndicator color={colors.accent} /> : null}
@@ -148,6 +186,7 @@ export function CatalogueScreen({
         ) : null
       }
       contentInsetAdjustmentBehavior="automatic"
+      keyboardShouldPersistTaps="handled"
       refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={() => void refetch()} tintColor={colors.accent} />}
       contentContainerStyle={{ alignSelf: "center", flexGrow: 1, maxWidth: 720, padding: 16, paddingBottom: 32, width: "100%" }}
     />

@@ -19,24 +19,44 @@ def test_local_price_formats():
     assert parse("1899") == 1899.0
 
 
-def test_each_spider_creates_four_start_requests():
+def test_each_spider_creates_expected_category_requests():
     async def collect(spider):
         return [request async for request in spider.start()]
 
-    for spider_class in (
-        KontaktHomeSpider,
-        BakuElectronicsSpider,
-        IrshadElectronicsSpider,
-        ISpaceSpider,
-    ):
-        requests = asyncio.run(collect(spider_class()))
-        assert len(requests) == 4
-        assert {request.cb_kwargs["category"] for request in requests} == {
+    expected_categories = {
+        KontaktHomeSpider: {
+            "smartphones",
+            "laptops",
+            "televisions",
+            "headphones",
+            "smartwatches",
+        },
+        BakuElectronicsSpider: {
+            "smartphones",
+            "laptops",
+            "televisions",
+            "tablets",
+            "headphones",
+            "smartwatches",
+        },
+        IrshadElectronicsSpider: {
             "smartphones",
             "laptops",
             "headphones",
             "smartwatches",
-        }
+        },
+        ISpaceSpider: {
+            "smartphones",
+            "laptops",
+            "headphones",
+            "smartwatches",
+        },
+    }
+
+    for spider_class, categories in expected_categories.items():
+        requests = asyncio.run(collect(spider_class()))
+        assert len(requests) == len(categories)
+        assert {request.cb_kwargs["category"] for request in requests} == categories
 
 
 class FakeStats:

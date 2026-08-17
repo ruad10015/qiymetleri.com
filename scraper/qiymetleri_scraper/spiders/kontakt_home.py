@@ -2,7 +2,8 @@
 Kontakt Home spider — scrapes product listings from kontakt.az
 
 Uses the server-rendered Magento / Swissup Breeze catalogue HTML.
-Categories covered (MVP): Smartphones, Laptops, Headphones, Smartwatches.
+Categories covered: Smartphones, Laptops, Televisions, Headphones, and
+Smartwatches.
 """
 
 import json
@@ -16,6 +17,7 @@ from qiymetleri_scraper.items import ProductItem
 CATEGORY_URLS = {
     "smartphones": "/telefoniya/smartfonlar",
     "laptops": "/notbuk-ve-kompyuterler/komputerler/notbuklar",
+    "televisions": "/televizorlar",
     "headphones": "/saatlar-ve-qulaqliqlar/qulaqliqlar",
     "smartwatches": "/saatlar-ve-qulaqliqlar/saatlar/smart-saatlar",
 }

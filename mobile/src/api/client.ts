@@ -1,7 +1,7 @@
 import { fetch } from "expo/fetch";
 
-const fallbackApiUrl = "http://10.0.2.2:8000";
-export const API_REQUEST_TIMEOUT_MS = 15_000;
+const fallbackApiUrl = "https://qiymetleri.onrender.com";
+export const API_REQUEST_TIMEOUT_MS = 8_000;
 
 export const apiBaseUrl = (process.env.EXPO_PUBLIC_API_URL || fallbackApiUrl).replace(/\/$/, "");
 
@@ -44,7 +44,7 @@ export async function apiGet<T>(path: string, signal?: AbortSignal): Promise<T> 
       signal: controller.signal,
     });
 
-    if (response.status === 404 || response.status === 422) {
+    if (response.status === 404) {
       throw new ResourceNotFoundError();
     }
     if (!response.ok) {
