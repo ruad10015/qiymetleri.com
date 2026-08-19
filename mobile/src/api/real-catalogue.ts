@@ -33,6 +33,11 @@ type RealCatalogueSnapshot = {
 
 export const realCatalogue = snapshotJson as RealCatalogueSnapshot;
 
+const snapshotFreshness = {
+  dataSource: "snapshot" as const,
+  snapshotGeneratedAt: realCatalogue.generated_at,
+};
+
 function optionCounts(
   values: string[],
   label: (value: string) => string = (value) => value,
@@ -139,7 +144,12 @@ export function getRealHomeData(): HomeData {
           || (left.lowest_price ?? Infinity) - (right.lowest_price ?? Infinity)),
   ).slice(0, 8);
   const filters = filtersFor(realCatalogue.products);
-  return { products, categories: filters.categories, stores: filters.stores };
+  return {
+    ...snapshotFreshness,
+    products,
+    categories: filters.categories,
+    stores: filters.stores,
+  };
 }
 
 export function getRealCatalogueData(query: CatalogueQuery): CatalogueData {
@@ -160,6 +170,7 @@ export function getRealCatalogueData(query: CatalogueQuery): CatalogueData {
   });
   const start = (page - 1) * perPage;
   return {
+    ...snapshotFreshness,
     items: items.slice(start, start + perPage),
     total: items.length,
     page,
@@ -186,5 +197,10 @@ export function getRealProductPageData(productId: string): ProductPageData | nul
     created_at: realCatalogue.generated_at,
     updated_at: realCatalogue.generated_at,
   };
-  return { product, history: [], stores: filtersFor(realCatalogue.products).stores };
+  return {
+    ...snapshotFreshness,
+    product,
+    history: [],
+    stores: filtersFor(realCatalogue.products).stores,
+  };
 }
