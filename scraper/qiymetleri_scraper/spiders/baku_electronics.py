@@ -3,12 +3,13 @@ Baku Electronics spider — scrapes product listings from bakuelectronics.az
 
 Server-rendered Next.js app with CSS-module class names (ProductCard_*).
 Pagination via ?page=N query parameter.
-Categories covered (MVP): Smartphones, Laptops, Headphones, Smartwatches.
+Categories covered: Smartphones, Laptops, Televisions, Tablets, Headphones,
+and Smartwatches.
 """
 
 import re
 from datetime import datetime, timezone
-from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 import scrapy
 
@@ -17,6 +18,8 @@ from qiymetleri_scraper.items import ProductItem
 CATEGORY_URLS = {
     "smartphones": "/catalog/telefonlar-qadcetler/smartfonlar-mobil-telefonlar",
     "laptops": "/catalog/noutbuklar-komputerler-planshetler/noutbuklar",
+    "televisions": "/catalog/tv-audio-video/televizorlar",
+    "tablets": "/catalog/telefonlar-plansetler/plansetler",
     "headphones": "/catalog/telefonlar-qadcetler/qulaqliqlar",
     "smartwatches": "/catalog/telefonlar-qadcetler/smart-saatlar",
 }

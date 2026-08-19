@@ -25,7 +25,14 @@ class PriceCleaningPipeline:
             raise DropItem("Məhsul adı boş və ya etibarsızdır")
         if not url or not self._is_allowed_url(url, spider.allowed_domains):
             raise DropItem(f"Məhsul URL-i mağaza domeninə aid deyil: {url}")
-        if category not in {"smartphones", "laptops", "headphones", "smartwatches"}:
+        if category not in {
+            "smartphones",
+            "laptops",
+            "televisions",
+            "headphones",
+            "tablets",
+            "smartwatches",
+        }:
             raise DropItem(f"Naməlum kateqoriya: {category}")
 
         # Parse price

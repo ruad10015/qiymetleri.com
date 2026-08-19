@@ -1,0 +1,110 @@
+{
+  "nav": {
+    "categories": "Kateqoriyalar",
+    "login": "Daxil ol"
+  },
+  "search": {
+    "placeholder": "Hansı məhsulu axtarırsınız?",
+    "submit": "Axtar"
+  },
+  "common": {
+    "home": "Ana səhifə",
+    "breadcrumb": "Səhifə yolu",
+    "apply": "Tətbiq et"
+  },
+  "home": {
+    "hero": "qiymetleri ilə istədiyin məhsulu ən ucuz yerdə tap",
+    "storesLabel": "Mağazalar:",
+    "popularTitle": "Ən çox baxılan məhsullar",
+    "seeAll": "Hamısına bax",
+    "emptyProducts": "Hələ məhsul məlumatı yoxdur.",
+    "dataUnavailable": "Məlumat xidməti müvəqqəti olaraq əlçatan deyil."
+  },
+  "product": {
+    "cheapest": "ƏN UCUZ",
+    "offers": "{count} qiymət",
+    "unit": "₼",
+    "favourite": "Seçilmişlərə əlavə et"
+  },
+  "catalogue": {
+    "title": "Məhsul kataloqu",
+    "searchTitle": "“{query}” üçün nəticələr",
+    "resultCount": "{count, number} məhsul tapıldı",
+    "categories": "Kateqoriyalar",
+    "brands": "Brendlər",
+    "stores": "Mağazalar",
+    "all": "Hamısı",
+    "filters": "Filtrlər",
+    "sort": "Sıralama",
+    "sortName": "Ada görə",
+    "sortPriceAsc": "Əvvəl ucuz",
+    "sortPriceDesc": "Əvvəl baha",
+    "pagination": "Kataloq səhifələri",
+    "previous": "Əvvəlki səhifə",
+    "next": "Növbəti səhifə",
+    "page": "{page, number} / {pages, number}"
+  },
+  "productPage": {
+    "unavailableTitle": "Məhsul məlumatı hazırda açılmır",
+    "unavailableBody": "Məlumat xidməti ilə əlaqə qurmaq mümkün olmadı. Bir qədər sonra yenidən yoxlayın.",
+    "backToCatalogue": "Kataloqa qayıt",
+    "offerSummary": "{count, number} mağaza təklifi müqayisə olunur",
+    "stores": "Mağaza təklifi",
+    "updated": "Son yenilənmə",
+    "priceNotice": "Qiymət və stok mağazada dəyişə bilər. Sifarişdən əvvəl yekun məlumatı mağaza səhifəsində yoxlayın.",
+    "offersTitle": "Mağaza qiymətləri",
+    "inStock": "Stokda var",
+    "outOfStock": "Stokda yoxdur",
+    "goToStore": "Mağazaya keç",
+    "noOffers": "Bu məhsul üçün aktiv mağaza təklifi yoxdur.",
+    "variants": "Məhsul variantları",
+    "features": "Xüsusiyyətlər",
+    "historyTitle": "30 günlük qiymət tarixçəsi",
+    "historyBody": "Mağazalardan qeydə alınmış son qiymət nöqtələri.",
+    "date": "Tarix",
+    "store": "Mağaza",
+    "price": "Qiymət",
+    "noHistory": "Bu məhsul üçün hələ qiymət tarixçəsi toplanmayıb.",
+    "attributes": {
+      "storage": "Yaddaş",
+      "color": "Rəng",
+      "chip": "Prosessor",
+      "watchSize": "Korpus ölçüsü",
+      "screenSize": "Ekran ölçüsü"
+    }
+  },
+  "content": {
+    "ctaTitle": "Daha çox məlumat lazımdır?",
+    "ctaBody": "Uyğun keçiddən kataloqa keçin və ya komandamızla əlaqə saxlayın."
+  },
+  "notFound": {
+    "title": "Axtardığınız səhifə tapılmadı",
+    "body": "Keçid dəyişdirilmiş və ya səhifə silinmiş ola bilər. Ana səhifəyə qayıdın və ya məhsul kataloquna baxın.",
+    "home": "Ana səhifəyə qayıt",
+    "catalogue": "Kataloqa bax"
+  },
+  "footer": {
+    "tagline": "Azərbaycanda elektronika mağazalarının qiymət müqayisəsi.",
+    "shop": "Kataloq",
+    "information": "Məlumat",
+    "legal": "Qaydalar və Məxfilik",
+    "about": "Haqqımızda",
+    "partnership": "Tərəfdaşlıq",
+    "social": "Sosial şəbəkələr",
+    "contact": "Əlaqə",
+    "terms": "Saytdan istifadə şərtləri",
+    "privacy": "Məxfilik siyasəti",
+    "personalData": "Fərdi məlumatlar",
+    "consent": "Məlumat emalına razılıq",
+    "copyright": "© {year} qiymetleri.com, Bakı. Bütün hüquqlar qorunur."
+  },
+  "categories": {
+    "phones": "Telefonlar",
+    "laptops": "Noutbuklar",
+    "tvs": "Televizorlar",
+    "headphones": "Qulaqlıqlar",
+    "tablets": "Tabletlər",
+    "watches": "Smart Saatlar",
+    "count": "{count, number} məhsul"
+  }
+}
