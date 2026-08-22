@@ -29,9 +29,10 @@ export function NetworkBanner({
   const isOffline = network.isConnected === false;
   if (!isOffline && (!dataSource || dataSource === "live")) return null;
 
-  const snapshotDate = snapshotGeneratedAt
+  const formattedSnapshotDate = snapshotGeneratedAt
     ? formatDate(new Date(snapshotGeneratedAt), { day: "2-digit", month: "short", year: "numeric" })
     : "—";
+  const snapshotDate = locale === "ru" ? formattedSnapshotDate.replace(/\.$/u, "") : formattedSnapshotDate;
   const message = isOffline
     ? copy[locale].offline
     : copy[locale][dataSource === "mixed" ? "mixed" : "snapshot"].replace("{date}", snapshotDate);

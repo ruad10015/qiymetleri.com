@@ -33,6 +33,33 @@
           "imageWidth": 76
         }
       ],
+      [
+        "expo-font",
+        {
+          "android": {
+            "fonts": [
+              {
+                "fontFamily": "Manrope",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/Manrope.ttf",
+                    "weight": 400
+                  }
+                ]
+              },
+              {
+                "fontFamily": "LTSuperiorExtraBold",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/LTSuperior-ExtraBold.ttf",
+                    "weight": 400
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
       "expo-sqlite",
       "expo-image"
     ],
